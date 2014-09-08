@@ -1,53 +1,53 @@
 <?php 
-	
+
+//Register Mobile Navigation
 add_action( 'genesis_register_nav_menus', 'register_weeklynews_mobile_menu' );
 function register_weeklynews_mobile_menu() {
-
 	register_nav_menu( 'weeklynews-mobile-menu' , __( 'Mobile Navigation Menu', 'genesis' ));
 }
 
-add_filter( 'genesis_do_nav', 'weeklynews_mobile_nav', 10, 3 );
-function weeklynews_mobile_nav( $nav_output, $nav, $args){
+//Add the Mobile Navigation Menu
+add_action('genesis_before_header', 'weeklynews_mobile_nav');
+function weeklynews_mobile_nav(){
+  
+  echo '<header id="page-header-mobile" class="visible-xs">';
+  echo '<div id="sidr">';
+  
+  get_search_form();
+  
+  if ( has_nav_menu( 'weeklynews-mobile-menu' ) ) {
 
-	//* Do nothing if menu not supported
-	if ( ! genesis_nav_menu_supported( 'primary' ) )
-		return; 
+    $args = array(
+      'theme_location'  => 'weeklynews-mobile-menu',
+      'before'          => '<a class="more" href="#"><i class="fa fa-angle-down"></i></a>',
+      'items_wrap'      => '<ul>%3$s</ul>',
+      'depth'           => 0,
+      'walker'          => new WeeklyNews_Mobile_Nav_Walker()
+      );
 
-	//* If menu is assigned to theme location, output
-	if ( has_nav_menu( 'weeklynews-mobile-menu' ) ) {
+    wp_nav_menu( $args );
+  }
 
-		$args = array(
-			'theme_location' => 'weeklynews-mobile-menu',
-			'container'      => '',
-	    'menu_class'     => ' ',
-	    'menu_id'         => ' ',
-	    'echo'           => 0,
-			
-		);
+  echo '</div>';
+  ?>
+<div class="row">
 
-		$nav = wp_nav_menu( $args );
+<!-- start:col -->
+<div class="col-xs-6">
+  <!-- start:logo -->
+  <h1><a href="#"><img src="images/logo-white-mobile.png" alt="Weekly News" /></a></h1>
+  <!-- end:logo -->
+</div>
+<!-- end:col -->
 
-		$nav_markup_open = '<div id="sidr">';
+<!-- start:col -->
+<div class="col-xs-6 text-right">
+  <a id="nav-expander" href=""><span class="glyphicon glyphicon-th"></span></a>
+</div>
+<!-- end:col -->
 
-		$nav_markup_open .= get_search_form( false );
-
-		//$nav_markup_close  = genesis_structural_wrap( 'menu-primary', 'close', 0 );
-		$nav_markup_close = genesis_html5() ? '</div>' : '</div>';
-
-		$nav_output = $nav_markup_open . $nav . $nav_markup_close;
-
-		return $nav_output;
-	}
+</div>
+  <!-- end:row -->
+  <?php
+  echo '</header>';
 }
-
-add_filter( 'genesis_attr_sidr', 'weeklynews_attr_sidr' );
-function weeklynews_attr_sidr( $attr ) {
-
-  unset( $attr[ 'class' ] );
-  $attr[ 'id' ] = '';
-  $attr[ 'id' ] .= 'sidr';
-  return $attr;
-
-}
-
-

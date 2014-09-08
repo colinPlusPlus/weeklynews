@@ -60,5 +60,8 @@ function weeklynews_load_ie_conditionals(){
   <?php
 }
 
-require_once( 'inc/header.php' );
+
 require_once( 'inc/nav.php' );
+require_once( 'classes/nav.php' );
+require_once( 'inc/header.php' );
+require_once( 'inc/search.php' );
