@@ -19,6 +19,9 @@ function weeklynews_mobile_nav(){
 
     $args = array(
       'theme_location'  => 'weeklynews-mobile-menu',
+      'container'       => '', 
+      'container_class' => '',
+      'menu_class'      => '',
       'before'          => '<a class="more" href="#"><i class="fa fa-angle-down"></i></a>',
       'items_wrap'      => '<ul>%3$s</ul>',
       'depth'           => 0,
@@ -51,3 +54,39 @@ function weeklynews_mobile_nav(){
   <?php
   echo '</header>';
 }
+
+//Filter genesis_do_nav to output our html markup
+add_filter('genesis_do_nav', 'weeklynews_do_nav', 10, 3 );
+function weeklynews_do_nav( $nav_output, $nav, $args ){
+	
+	echo '<div id="header-navigation">';
+  echo '<div class="container">';
+                    
+	if ( has_nav_menu( 'primary' ) ) {
+  
+    $args = array(
+    	'theme_location'  => 'primary',
+    	'menu'            => '', 
+    	'container'       => 'nav', 
+    	'container_class' => ' ', 
+    	'container_id'    => 'menu',
+    	'menu_class'      => 'nav clearfix', 
+    	'menu_id'         => '',
+    	'echo'            => true,
+    	'fallback_cb'     => 'wp_page_menu',
+    	'before'          => '',
+    	'after'           => '',
+    	'link_before'     => '',
+    	'link_after'      => '',
+    	'items_wrap'      => '<ul class="%2$s">%3$s</ul>',
+    	'depth'           => 0,
+    	'walker'          => new WeeklyNews_Do_Nav_Walker() 
+		);
+
+    wp_nav_menu( $args );
+
+    echo '</div>';
+    echo '</div>';
+  }
+}
+
