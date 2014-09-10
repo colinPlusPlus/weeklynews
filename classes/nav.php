@@ -75,17 +75,17 @@ class WeeklyNews_Do_Nav_Walker extends Walker_Nav_Menu{
         $classes = empty( $item->classes ) ? array() : (array) $item->classes;
 
         $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item ) );
-        $class_names = ' class="'. esc_attr( $class_names ) . '"';
+        $class_names = esc_attr( $class_names ) ;
 
 
-
+        //var_dump($item->classes);
         if ( $depth == 0 ){
 
           $output .= '<li class="home current"><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>';
-          $output .= $indent . '<li class="cat-news">';
+          $output .= $indent . '<li class="cat-news '.$class_names.'">';
         }
-        else{
-          $output .= '<li class=" ">';
+        elseif ( $depth == 1 ){
+          $output .= '<li class="">';
         }
 
 
