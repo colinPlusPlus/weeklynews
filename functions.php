@@ -25,7 +25,7 @@ function weeklynews_theme_setup(){
   add_theme_support( 'custom-background' );
 
   //Remove the Genesis Header Area
-  remove_action('genesis_header', 'genesis_before');
+  //remove_action('genesis_header', 'genesis_before');
 }
 
   /** Load Custom Scripts File **/
@@ -59,7 +59,6 @@ function weeklynews_load_ie_conditionals(){
     <![endif]-->
   <?php
 }
-
 
 require_once( 'inc/nav.php' );
 require_once( 'classes/nav.php' );

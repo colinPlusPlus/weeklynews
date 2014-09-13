@@ -19,6 +19,7 @@ wp_head(); //* we need this for plugins
 ?>
 </head>
 <?php
+
 genesis_markup( array(
   'html5'   => '<body %s>',
   'xhtml'   => sprintf( '<body class="%s">', implode( ' ', get_body_class() ) ),
@@ -40,6 +41,8 @@ genesis_markup( array(
 
 do_action( 'genesis_before_header' );
 do_action( 'genesis_header' );
+
+//remove_action( 'genesis_header', 'genesis_do_header' );
 do_action( 'genesis_after_header' );
 
 genesis_markup( array(
