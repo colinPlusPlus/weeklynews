@@ -73,19 +73,25 @@ class WeeklyNews_Do_Nav_Walker extends Walker_Nav_Menu{
       //var_dump($item->classes);
       if ( $depth == 0 ){
 
-        $output .= '<li class="home current"><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>';
-        $output .= $indent . '<li class="cat-news '.$class_names.'">';
+        $attributes  = ! empty( $item->attr_title )  ? ' title="'  . esc_attr( $item->attr_title  ) . '"' : '';
+        $attributes .= ! empty( $item->target )      ? ' target="' . esc_attr( $item->target      ) . '"' : '';
+        $attributes .= ! empty( $item->xfn )         ? ' rel="'    . esc_attr( $item->xfn         ) . '"' : '';
+        $attributes .= ! empty( $item->url )         ? ' href="'   . esc_attr( $item->url         ) . '"' : '';
+        $description = ! empty( $item->description ) ? ' <span>'   . esc_attr( $item->description ) . '</span>' : '';
+
+        $output .= $indent . '<li class="cat-' . strtolower($item->title);
+        $output .= ! empty( $class_names ) ? ' '. $class_names .'">' :  '">';
       }
       elseif ( $depth == 1 ){
         $output .= '<li class="">';
       }
 
 
-      $attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
-      $attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
-      $attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
-      $attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
-      $description  = ! empty( $item->description ) ? '<span>'.esc_attr( $item->description ).'</span>' : '';
+      $attributes  = ! empty( $item->attr_title )  ? ' title="'  . esc_attr( $item->attr_title  ) . '"' : '';
+      $attributes .= ! empty( $item->target )      ? ' target="' . esc_attr( $item->target      ) . '"' : '';
+      $attributes .= ! empty( $item->xfn )         ? ' rel="'    . esc_attr( $item->xfn         ) . '"' : '';
+      $attributes .= ! empty( $item->url )         ? ' href="'   . esc_attr( $item->url         ) . '"' : '';
+      $description = ! empty( $item->description ) ? ' <span>'   . esc_attr( $item->description ) . '</span>' : '';
 
       if($depth != 0) {
           $description = $append = $prepend = "";
